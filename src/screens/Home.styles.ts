@@ -2,7 +2,7 @@ import {StyleSheet, ViewStyle} from "react-native";
 
 const cardStyle: ViewStyle = {
     backgroundColor: '#ffffff',
-    borderRadius: 76,
+    borderRadius: 16,
     overflow: 'hidden',
     padding: 16,
 };
@@ -38,7 +38,26 @@ const styles = StyleSheet.create({
 const currencyCardStyles = StyleSheet.create({
     container: {
         ...cardStyle,
-    }
+        minHeight: 162,
+    },
+    closeContainer: {
+        alignSelf: 'center',
+        alignItems: 'center',
+    },
+    closeBackground: {
+    },
+    closeIcon: {
+        position: 'absolute',
+        top: 16,
+    },
+    countrySelectInputContainer: {
+        flex: 1,
+        marginRight: 8,
+    },
+    currencySelectInputContainer: {
+        flex: 1,
+        marginLeft: 8,
+    },
 });
 
 const bottomCardStyles = StyleSheet.create({
@@ -46,6 +65,7 @@ const bottomCardStyles = StyleSheet.create({
         ...cardStyle,
         marginTop: 16,
         flexDirection: 'row',
+        borderRadius: 76,
     },
     actionButtonsContainer: {
         flex: 1,
@@ -64,4 +84,3 @@ export {
     bottomCardStyles,
     roundButton,
 };
-

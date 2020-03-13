@@ -5,6 +5,9 @@ import ActionButton4 from './ActionButton4.png';
 import ActionButton5 from './ActionButton5.png';
 import BrowserButton from './BrowserButton.png';
 
+import CurrencyCloseBackground from './CurrencyCloseBackground.png';
+import CurrencyClose from './CurrencyClose.png';
+
 export {
     ActionButton1,
     ActionButton2,
@@ -12,4 +15,7 @@ export {
     ActionButton4,
     ActionButton5,
     BrowserButton,
+
+    CurrencyCloseBackground,
+    CurrencyClose,
 }

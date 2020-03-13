@@ -26,3 +26,5 @@ declare module '*.mp3' {
   const value: any;
   export default value;
 }
+
+declare module '@tele2/react-native-select-input';

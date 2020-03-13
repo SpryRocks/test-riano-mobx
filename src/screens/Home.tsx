@@ -6,26 +6,60 @@ import {
     SafeAreaView,
     ScrollView,
     StatusBar,
-    Text,
     TouchableOpacity,
     View,
     ViewStyle
 } from "react-native";
-import styles, {currencyCardStyles, bottomCardStyles, roundButton} from './Home.styles';
+import styles, {currencyCardStyles, bottomCardStyles, roundButton, currencyPicker} from './Home.styles';
 import {
     ActionButton1,
     ActionButton2,
     ActionButton3,
     ActionButton4,
     ActionButton5,
-    BrowserButton,
-} from './assets'
+    BrowserButton, CurrencyClose, CurrencyCloseBackground,
+} from './assets';
+import SelectInput from '@tele2/react-native-select-input';
 
 const Home: React.FunctionComponent = () => {
-    const renderCurrencyCard = () => {
-        return <View style={currencyCardStyles.container}>
-            <Text>Currency</Text>
+    const Close = () => {
+        return <View style={currencyCardStyles.closeContainer}>
+            <Image
+                style={currencyCardStyles.closeContainer}
+                source={CurrencyCloseBackground}
+            />
+            <Image style={currencyCardStyles.closeIcon} source={CurrencyClose}/>
         </View>
+    };
+
+    const renderCurrencyCard = () => {
+        return <>
+            <Close/>
+            <View style={currencyCardStyles.container}>
+                <View
+                    style={{
+                        flexDirection: 'row'
+                    }}
+                >
+                    <SelectInput
+                        containerStyle={currencyCardStyles.countrySelectInputContainer}
+                        options={[{
+                            value: 'United States',
+                            label: 'United States',
+                        }]}
+                        value="United States"
+                    />
+                    <SelectInput
+                        containerStyle={currencyCardStyles.currencySelectInputContainer}
+                        options={[{
+                            value: 'USD',
+                            label: 'USD',
+                        }]}
+                        value="USD"
+                    />
+                </View>
+            </View>
+        </>
     };
 
     const renderRoundButton = (style: ViewStyle, image: ImageSourcePropType) => {
