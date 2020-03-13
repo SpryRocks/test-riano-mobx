@@ -68,7 +68,7 @@ const Home: React.FunctionComponent = () => {
             <Close/>
             <View style={currencyCardStyles.container}>
                 <Observer>{() => {
-                    const currentCountry = state.currentCountry;
+                    const currentCountry: Country | undefined = state.currentCountry ? state.currentCountry : state.countries[0];
 
                     const countries = getCountriesItems();
 
@@ -76,11 +76,10 @@ const Home: React.FunctionComponent = () => {
 
                     let currentCurrency: Currencies | undefined = state.currentCurrency;
                     if (!currentCurrency) {
-                        if (currentCountry) {
+                        if (currentCountry !== undefined) {
                             currentCurrency = state.currencies.find(c=>c._id === currentCountry.preferredCurrencyId)
                         }
                     }
-                    console.log(currentCurrency)
 
                     const preferredCountryValue =
                         currentCountry ? currentCountry._id :
@@ -91,7 +90,6 @@ const Home: React.FunctionComponent = () => {
                             currencies.length > 0 ? currencies[0].value :
                                 undefined;
 
-                    console.log("v", preferredCurrencyValue)
 
                     return <View
                         style={{
