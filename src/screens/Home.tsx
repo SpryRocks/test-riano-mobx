@@ -10,7 +10,7 @@ import {
     View,
     ViewStyle
 } from "react-native";
-import styles, {currencyCardStyles, bottomCardStyles, roundButton, currencyPicker} from './Home.styles';
+import styles, {currencyCardStyles, bottomCardStyles, roundButton} from './Home.styles';
 import {
     ActionButton1,
     ActionButton2,
@@ -20,6 +20,11 @@ import {
     BrowserButton, CurrencyClose, CurrencyCloseBackground,
 } from './assets';
 import SelectInput from '@tele2/react-native-select-input';
+import {Observer} from 'mobx-react';
+import {state} from "store";
+import Currencies from "entities/Currency";
+import Country from "entities/Country";
+import Currency from "entities/Currency";
 
 const Home: React.FunctionComponent = () => {
     const Close = () => {
@@ -28,36 +33,87 @@ const Home: React.FunctionComponent = () => {
                 style={currencyCardStyles.closeContainer}
                 source={CurrencyCloseBackground}
             />
-            <Image style={currencyCardStyles.closeIcon} source={CurrencyClose}/>
+            <TouchableOpacity style={currencyCardStyles.closeIcon} activeOpacity={0.6} onPress={()=>state.setCurrentCurrency(undefined)}>
+                <Image source={CurrencyClose}/>
+            </TouchableOpacity>
         </View>
+    };
+
+    const getCountriesItems = () => {
+        return state.countries.map(c => ({
+            label: c.name,
+            value: c._id,
+        }))
+    };
+
+    const getCurrenciesItems = () => {
+        return state.currencies.map(c => ({
+            label: c.name,
+            value: c._id,
+        }))
+    };
+
+    const onCountryChange = (value: string) => {
+        const country: Country | undefined = state.countries.find(c => c._id === value);
+        state.setCurrentCountry(country);
+    };
+
+    const onCurrencyChange = (value: string) => {
+        const currency: Currency | undefined = state.currencies.find(c => c._id === value);
+        state.setCurrentCurrency(currency);
     };
 
     const renderCurrencyCard = () => {
         return <>
             <Close/>
             <View style={currencyCardStyles.container}>
-                <View
-                    style={{
-                        flexDirection: 'row'
-                    }}
-                >
-                    <SelectInput
-                        containerStyle={currencyCardStyles.countrySelectInputContainer}
-                        options={[{
-                            value: 'United States',
-                            label: 'United States',
-                        }]}
-                        value="United States"
-                    />
-                    <SelectInput
-                        containerStyle={currencyCardStyles.currencySelectInputContainer}
-                        options={[{
-                            value: 'USD',
-                            label: 'USD',
-                        }]}
-                        value="USD"
-                    />
-                </View>
+                <Observer>{() => {
+                    const currentCountry = state.currentCountry;
+
+                    const countries = getCountriesItems();
+
+                    const currencies = getCurrenciesItems();
+
+                    let currentCurrency: Currencies | undefined = state.currentCurrency;
+                    if (!currentCurrency) {
+                        if (currentCountry) {
+                            currentCurrency = state.currencies.find(c=>c._id === currentCountry.preferredCurrencyId)
+                        }
+                    }
+                    console.log(currentCurrency)
+
+                    const preferredCountryValue =
+                        currentCountry ? currentCountry._id :
+                            undefined;
+
+                    const preferredCurrencyValue =
+                        currentCurrency ? currentCurrency._id :
+                            currencies.length > 0 ? currencies[0].value :
+                                undefined;
+
+                    console.log("v", preferredCurrencyValue)
+
+                    return <View
+                        style={{
+                            flexDirection: 'row'
+                        }}
+                    >
+                        <SelectInput
+                            containerStyle={currencyCardStyles.countrySelectInputContainer}
+                            options={countries}
+                            value={preferredCountryValue}
+                            valueStyle={currencyCardStyles.selectInputValue}
+                            onChange={onCountryChange}
+                        />
+                        <SelectInput
+                            containerStyle={currencyCardStyles.currencySelectInputContainer}
+                            options={currencies}
+                            value={preferredCurrencyValue}
+                            valueStyle={currencyCardStyles.selectInputValue}
+                            onChange={onCurrencyChange}
+                        />
+                    </View>
+                }}</Observer>
             </View>
         </>
     };

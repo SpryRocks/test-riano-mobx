@@ -50,6 +50,9 @@ const currencyCardStyles = StyleSheet.create({
         position: 'absolute',
         top: 16,
     },
+    selectInputValue: {
+        color: '#505B76'
+    },
     countrySelectInputContainer: {
         flex: 1,
         marginRight: 8,
