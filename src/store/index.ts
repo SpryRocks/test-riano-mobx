@@ -1,4 +1,4 @@
-import State from 'src/entities/State';
+import State from 'entities/State';
 
 const state = new State();
 

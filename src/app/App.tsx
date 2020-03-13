@@ -1,8 +1,8 @@
-import AppLoading from 'src/app/AppLoading';
+import AppLoading from './AppLoading';
 import * as React from 'react';
 import {useState} from 'react';
 import AppInitializer from './AppInitializer';
-import Router from "../screens/Router";
+import Router from "screens/Router";
 
 const App: React.FC = () => {
   const [isReady, setIsReady] = useState<boolean>(false);

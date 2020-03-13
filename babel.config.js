@@ -17,7 +17,9 @@ module.exports = {
           assets: './assets',
           resources: './resources',
           store: ['./src/store'],
-          managers: ["./src/managers"]
+          managers: ["./src/managers"],
+          screens: ["./src/screens"],
+          entities: ["./src/entities"]
         },
       },
     ],

@@ -27,7 +27,11 @@
             "store": ["./src/store"],
             "store/*": ["./src/store/*"],
             "managers": ["./src/managers"],
-            "managers/*": ["./src/managers/*"]
+            "managers/*": ["./src/managers/*"],
+            "screens": ["./src/screens"],
+            "screens/*": ["./src/screens/*"],
+            "entities": ["./src/entities"],
+            "entities/*": ["./src/entities/*"]
         }
     },
     "exclude": [
